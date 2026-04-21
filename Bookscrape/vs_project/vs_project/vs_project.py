@@ -6,6 +6,8 @@
 \____/\____/\_/  \|  \_/    \_/   \____/\____/\_|\_\  \_/  \|\_/ \_/ \_/ \|  \_/  \|/_/     \____/\____/\____/\_____
 """
 import requests
+import time
+import sys
 from bs4 import BeautifulSoup
 
 class App():
@@ -19,7 +21,8 @@ class App():
             print("site loaded")
             print("page title:", site.title.string)
         else:
-            print("failed to load site")
+            print("\nFAILED TO LOAD SITE! PROGRAM WILL CLOSE!!! sowwy :3")
+            sys.exit()
 
     def load_bookscrape(self):
         URL = "https://books.toscrape.com/"
@@ -38,7 +41,6 @@ class App():
             except requests.exceptions.RequestException as e:
                 print(f"request failed, {e}")
 
-        print("failed to load site sry")
         return None
 
 if __name__ == "__main__":
