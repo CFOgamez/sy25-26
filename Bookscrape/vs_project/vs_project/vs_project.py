@@ -1,23 +1,45 @@
-# I am organizing my code in a certain way. Don't fuck with my code
+"""
+ ____  ____  _      _____    _____ _     ____  _  __   _      _ _____ _       _     ___  _   ____  ____  ____  _____
+/  _ \/  _ \/ \  /|/__ __\  /    // \ /\/   _\/ |/ /  / \  /|/ Y__ __Y \ /|  / \__/|\  \//  /   _\/  _ \/  _ \/  __/
+| | \|| / \|| |\ ||  / \    |  __\| | |||  /  |   /   | |  ||| | / \ | |_||  | |\/|| \  /   |  /  | / \|| | \||  \  
+| |_/|| \_/|| | \||  | |    | |   | \_/||  \__|   \   | |/\||| | | | | | ||  | |  || / /    |  \__| \_/|| |_/||  /_ 
+\____/\____/\_/  \|  \_/    \_/   \____/\____/\_|\_\  \_/  \|\_/ \_/ \_/ \|  \_/  \|/_/     \____/\____/\____/\_____
+"""
 import requests
 from bs4 import BeautifulSoup
 
 class App():
     def __init__(self):
         # Start application
-        self.load_bookscrape()
+        self.interface()
 
     def interface(self):
-        print("Load interface")
+        site = self.load_bookscrape()
+        if site:
+            print("site loaded")
+            print("page title:", site.title.string)
+        else:
+            print("failed to load site")
 
     def load_bookscrape(self):
         URL = "https://books.toscrape.com/"
-        response = requests.get(URL)
-        
-        if response.status_code == 200:
-            print("Request to Bookscrape successful")
-        else:
-            print(f"Request failed with status code: {response.status_code}")
+        MAX_RETRY = 3
+
+        for attempt in range(MAX_RETRY):
+            print(f"attempting to fetch site ({attempt+1}/{MAX_RETRY})")
+            try:
+                response = requests.get(URL)
+                if response.status_code == 200:
+                    print("request to bookscrape successful")
+                    return BeautifulSoup(response.text, "html.parser")
+                
+                # if unexpected status code, retry
+                print(f"err while requesting site, status code {response.status_code}")
+            except requests.exceptions.RequestException as e:
+                print(f"request failed, {e}")
+
+        print("failed to load site sry")
+        return None
 
 if __name__ == "__main__":
     application = App()
