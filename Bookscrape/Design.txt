@@ -1,6 +1,6 @@
 What the program does -
 
 the program's general purpose is to be a 'filtering' system for the 'Books to scrape' website. 
-It will ask the user to input a genre, and search by price or rating of the books.
-The program should have the ability to have descending and ascending filters.
-it should also have a well balanced UI, instead of being a console.
+It will ask the user to input a genre or author, and search by price, and/or rating of the books.
+The program should have the ability to have descending and ascending filters as well as an alphabetical search.
+it should also have a well balanced UI, with images instead of being a console.
