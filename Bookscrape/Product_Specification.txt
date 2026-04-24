@@ -1,0 +1,3 @@
+-Filtering system- can search anything you need to filter
+-UI- able to click, doesn't glitch, has book
+-Images- shows author or book
