@@ -3,8 +3,8 @@ import requests
 from bs4 import BeautifulSoup
 # ------------------------------------------------------ #
 
-def load_bookscrape():
-    URL = "https://books.toscrape.com/"
+def load_page(page):
+    URL = f"https://books.toscrape.com/catalogue/page-{page}.html"
     MAX_RETRY = 3
 
     for attempt in range(MAX_RETRY):
