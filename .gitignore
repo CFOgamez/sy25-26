@@ -416,7 +416,3 @@ FodyWeavers.xsd
 *.msix
 *.msm
 *.msp
-
-Bookscrape/vs_project/vs_project.sln
-
-Bookscrape/vs_project/vs_project/vs_project.pyproj
