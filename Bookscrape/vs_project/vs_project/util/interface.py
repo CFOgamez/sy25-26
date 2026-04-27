@@ -63,6 +63,7 @@ def build_interface(html,curr_page = 1):
         [psg.Text("Books to Scrape!")],
         [psg.Listbox(values=[book["title"] for book in books], size=(50,20), key="-BOOKS-", enable_events=True)],
         [psg.Button("Previous Page"), psg.Text(f"Pg {curr_page}"), psg.Button("Next Page")],
+        [psg.Input(default_text=str(curr_page), size=(5,1), key='-INPUT-'), psg.Button("GO")],
         [psg.Button("Close")]
     ]
     window = psg.Window("My Window", layout)
@@ -83,6 +84,21 @@ def build_interface(html,curr_page = 1):
                 return
             else:
                 psg.popup_error("Failed to load page! Please try again :(")
+        if event == "GO":
+            try:
+                page_num = int(values['-INPUT-'])
+                if 1 <= page_num <= 50:
+                    new_page = fetch_bookscrape.load_page(page_num)
+                    if new_page:
+                        window.close()
+                        build_interface(new_page, page_num)
+                        return
+                    else:
+                        psg.popup_error("failed to load page! please try again :(")
+                else:
+                    psg.popup_error("please enter a valid page number between 1 and 50.")
+            except ValueError:
+                psg.popup_error("please enter a valid integer for the page number.")
 
         if event == "-BOOKS-":
             selected_book = values["-BOOKS-"][0] if values["-BOOKS-"] else None
